@@ -35,7 +35,7 @@ Jarvis Chen
 
 <br>
 
-Wednesday, January 10, 2024
+Wednesday, January 15, 2025
 
 
 ## Follow along {.smaller}
@@ -99,7 +99,7 @@ fig-alt="Weird Barbie Our Patron Saint of Messy Data"}
 messy_data <- read_csv("messy_data.csv")
 
 # Have a look
-View(messy_data)
+# View(messy_data)
 ```
 </div>
 :::
@@ -160,7 +160,7 @@ Is there a pattern to the duplicated records?
 
 ```{r}
 df <- df |> arrange(id_number)
-View(df)
+# View(df)
 ```
 <br>
 
@@ -253,7 +253,7 @@ unique_df <- df |>
   # it's always a good idea to ungroup() after using a group_by
   ungroup()
 
-View(unique_df)
+# View(unique_df)
 ```
 
 
@@ -459,7 +459,7 @@ proportions_by_gender_raceth <- unique_df |>
            count_insufficient_sleep/sum(count_insufficient_sleep, na.rm=T)) |>
   ungroup()
 
-View(proportions_by_gender_raceth)
+# View(proportions_by_gender_raceth)
 ```
 
 <br>
@@ -486,7 +486,7 @@ summarize_continuous_variables <- unique_df |>
     )
   ))
 
-View(summarize_continuous_variables)
+# View(summarize_continuous_variables)
 ```
 
 - Note that
