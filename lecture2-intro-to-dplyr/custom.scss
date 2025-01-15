@@ -1,0 +1,242 @@
+/*-- scss:defaults --*/
+// Header color (all levels)
+$presentation-heading-color: #3F569E !default;
+
+// Base font size 
+$presentation-font-size-root: 35px !default;
+
+// Code text and background colors
+$code-color: #3F569E !default;
+$code-block-bg: #f5f5f5f4 !default;
+
+// URL color
+$link-color: #3F569E !default;
+
+/*-- scss:rules --*/
+// To highlight in-line text in orange
+.outline {
+  background-color: #FFD5B1;
+  box-decoration-break: clone;
+  outline: 3px solid #D3985B;
+
+}
+
+// Change smaller rule by -1px (originally 24.5)
+.smaller {
+  font-size: 23.5px !important;
+}
+
+// For tweaking code size (slightly bigger than .smaller)
+.small {
+  font-size: 28px !important;
+}
+
+// For tweaking code size (pretty large)
+.larger {
+  font-size: 40px !important;
+}
+
+// For tweaking code size (very large)
+.v-large {
+  font-size: 60px !important;
+}
+
+
+// For long titles on section slides
+.xsmall {
+  font-size: 22px !important;
+}
+
+// Font and object colors 
+.blue-bold {
+  color: #3F569E;
+  font-weight: bold;
+}
+
+.blue {
+  color: #3F569E;
+}
+
+.red {
+  color: #F75250;
+}
+
+.orange {
+  color: #D3985B;
+}
+
+.peach {
+  color: #DF9075;
+}
+
+.teal {
+  color: #2A5760;
+}
+
+.black h1 h2 h3 h4 {
+  color: black !important;
+}
+
+// Custom font size and color for h1 header on title and section-break slides
+.white-title, .white-title h1 {
+  color: white;
+  font-size: 24px;
+}
+
+// Custom code color
+.white-code, .white-code code {
+  color: white !important;
+}
+
+// Custom font size and color for title and section-break slides
+.white-15-pt { 
+  font-size: 15pt; 
+  color: white;
+}
+
+.white-12-pt { 
+  font-size: 12pt; 
+  color: white;
+}
+
+// Slide number and font size and color
+.slide-number, .slide-number {
+  color: #3F569E !important;
+  font-size: 20px !important;
+}
+
+// A narrower line break to use between bulleted sections on slides
+.small-break br {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+// Pop-up dialog from christian
+.popup {
+  background-color: rgba(63, 86, 158, 0.05);
+  border-radius: 1px; /* Making border radius */
+  border: 4px solid #3F569E;
+  width: auto; /* Making auto-sizable width */
+  height: auto; /* Making auto-sizable height */
+  padding: 5px 30px 5px 30px; /* Making space around letters */
+}
+
+
+// Custom single-line, two-line, and large boxes for emphasis (apply this rule with a color rule)
+.mini-box {
+  background-color: transparent;
+  margin: 1px;
+  padding: 5px 2px 5px 2px;
+  height: 8px;
+  border: 4px solid;
+  z-index: 100;
+  position: relative;
+}
+
+// Customize box height with line breaks 
+.custom-box {
+  background-color: transparent;
+  margin: 1px;
+  padding: 5px 2px 5px 2px;
+  height: auto;
+  border: 4px solid;
+  z-index: 1000;
+  position: relative;
+}
+
+// Custom single-line, two-line, and large boxes for emphasis (apply this rule with a color rule)
+.one-line-box {
+  background-color: transparent;
+  margin: 1px;
+  padding: 5px 2px 5px 2px;
+  height: 33px;
+  border: 4px solid;
+  z-index: 100;
+  position: relative;
+}
+
+.two-line-box {
+  background-color: transparent;
+  margin: 1px;
+  padding: 5px 2px 5px 2px;
+  height: 68px;
+  border: 4px solid;
+  z-index: 100;
+  position: relative;
+}
+
+.three-line-box {
+  background-color: transparent;
+  margin: 1px;
+  padding: 5px 2px 5px 2px;
+  height: 110px;
+  border: 4px solid;
+  z-index: 100;
+  position: relative;
+}
+
+.large-box {
+  background-color: transparent;
+  margin: 1px;
+  padding: 5px 2px 5px 2px;
+  height: 240px;
+  border: 4px solid;
+  z-index: 100;
+  position: relative;
+}
+
+// Applies tex-align left to all section elements nested underneath other section elements
+.reveal .slides > section > section { 
+  text-align:left; 
+} 
+
+// Clear floats after the columns
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+} 
+
+.column {
+  float: left;
+  width: 50%;
+  display: table;
+}
+
+// Pad R output from code chunk
+.cell-output.cell-output-stdout, .code-break {
+  padding-top: 0.5rem;
+}
+
+.small-code code {
+  font-size: 26px !important;
+}
+
+.code-window pre.sourceCode code {
+	height: 200px;
+  max-block-size: 500px;
+}
+
+.big-scroll {
+  max-height: 800px;
+  overflow-y: auto;
+  background-color: inherit;
+}
+
+// .sourceCode .xsmall {
+//   font-size: 24px !important;
+// }
+
+
+
+
+div.blue__ pre { 
+  background-color:lightblue !important; 
+}
+
+
+
+div.blue_ pre.r { 
+  div.blue pre { background-color:lightblue !important; }
+  background-color:blue !important;
+ }

@@ -1,7 +1,7 @@
 ---
 format: 
   revealjs:
-    theme: [simple, ../../day2/lecture3-reading-in-data/custom.scss]
+    theme: [simple, ../../slides-day3/lecture2-intro-to-dplyr/custom.scss]
     highlight: pygments
     logo: images/id529-sticker.png
     slide-number: true
@@ -17,7 +17,7 @@ ID 529: Data Management and Analytic Workflows in R
 :::
 
 ::: {.white-12-pt}
-Dean Marengi \| Wednesday, January 10<sup>th</sup>, 2024
+Dean Marengi \| Wednesday, January 15<sup>th</sup>, 2025
 :::
 
 ## Motivation {.smaller}
@@ -133,7 +133,7 @@ Dean Marengi \| Wednesday, January 10<sup>th</sup>, 2024
     <!-- -   Imported from `magrittr` package -->
     -   Can "pipe" function output from one data manipulation step to the next
     -   Produces clean, readable code that reads from left to right, top to bottom
-    -   [Note:]{.blue-bold} The `%>%` reads as "then"
+    -   [Note:]{.blue-bold} The `|>` reads as "then"
 :::
 
 ::: {.column width=5%}
@@ -152,8 +152,8 @@ our_data <- data.frame(id = 1:15,
   
 # Shuffle data
 set.seed(12)
-our_data <- our_data %>% 
-  slice_sample(n = 15) %>% 
+our_data <- our_data |> 
+  slice_sample(n = 15) |> 
   as_tibble()
 ```
 
@@ -173,9 +173,9 @@ print(our_data, n = 10)
 ```{r, echo=T}
 #| code-line-numbers: "1-2|1-4|1-6"
 # Take our data, which is stored as a tibble
-new_data <- our_data %>%
+new_data <- our_data |>
   # THEN filter our data for a subset of rows
-  filter(group == "i <3 dplyr") %>%
+  filter(group == "i <3 dplyr") |>
   # THEN arrange the result by number of gold stars
   arrange(desc(num_gold_stars))
 ```
@@ -269,8 +269,8 @@ library(tidyverse)
 library(ID529data)
 data(nhanes_id529, package = 'ID529data')
 
-data <- nhanes_id529 %>%
-  select(id, age, race_ethnicity, mean_BP, height, weight, poverty_ratio, PFOS:PFDE) %>% as_tibble()
+data <- nhanes_id529 |>
+  select(id, age, race_ethnicity, mean_BP, height, weight, poverty_ratio, PFOS:PFDE) |> as_tibble()
 ```
 
 ::: {.code-break}
@@ -328,7 +328,7 @@ rename(data,
        sbp = mean_BP,
        pov_ratio = poverty_ratio,
        race_eth = race_ethnicity,
-       ) %>% 
+       ) |> 
   glimpse()
 ``` 
 ::: 
@@ -339,14 +339,14 @@ rename(data,
 
 ```{r, echo=T, eval=T, R.options=list(width=100)}
 # Convert all columns names to lower case
-rename_with(data, .fn = tolower) %>% 
+rename_with(data, .fn = tolower) |>
   glimpse()
 ```
 
 
 ```{r, echo=T, eval=T, R.options=list(width=100)}
 # Convert column names that start with PF to upper case 
-rename_with(data, .fn = toupper, starts_with("pf")) %>% 
+rename_with(data, .fn = toupper, starts_with("pf")) |>
   glimpse()
 ```
 
@@ -496,7 +496,7 @@ arrange(.data, ..., .by_group = FALSE)
 # Take the data frame (data)
 # Then arrange rows by age (in ascending order)
 # Then print the first 5 rows
-arrange(data, age) %>% 
+arrange(data, age) |> 
   head(n = 5)
 ``` 
 :::
@@ -506,7 +506,7 @@ arrange(data, age) %>%
 # Take the data frame (data)
 # Then arrange rows by age, then mean SBP (descending)
 # Then print the first 5 rows
-arrange(data, desc(age), desc(mean_BP)) %>% 
+arrange(data, desc(age), desc(mean_BP)) |> 
   head(n = 5)
 ```
 ::: 
@@ -558,8 +558,8 @@ names(data)
 ::: fragment
 ```{r, echo=T, eval=T, R.options=list(width=50), collapse=F}
 # From the data frame, select columns explicitly by name 
-data %>% 
-  select(age, height, weight, mean_BP) %>% 
+data |>
+  select(age, height, weight, mean_BP) |> 
   head(n = 4)
 ``` 
 :::
@@ -567,8 +567,8 @@ data %>%
 ::: fragment
 ```{r}
 # From the data frame, select sequences of consecutive columns
-data %>%
-  select(id:race_ethnicity, PFOS:PFDE) %>% 
+data |>
+  select(id:race_ethnicity, PFOS:PFDE) |> 
   head(n = 4)
 ```
 ::: 
@@ -613,8 +613,8 @@ data %>%
 ```{r, echo=T, R.options=list(width=100)}
 # From the data frame, select id and columns that
 # are prefixed with PF
-data %>% 
-  select(id, starts_with("PF")) %>% 
+data |>
+  select(id, starts_with("PF")) |> 
   head(n = 4)
 ```
 
@@ -625,8 +625,8 @@ data %>%
 
 # Bring ID and PFAS variables to the beginning of the dataset
 # then position all non-selected variables after them
-data %>% 
-  select(id, starts_with("PF"), everything()) %>% 
+data |> 
+  select(id, starts_with("PF"), everything()) |> 
   head(n = 4)
 ```
 
@@ -667,11 +667,11 @@ mutate(.data, ...)
 ::: fragment
 ```{r, echo=T, eval=T, R.options=list(width=80)}
 # Derive new variables
-data %>% 
+data |> 
   mutate(weight_lbs = round(weight * 2.20462, 2), 
          height_in = round(height * 0.393701, 2),
          age_60 = if_else(age >= 60, 1, 0)
-         ) %>% 
+         ) |> 
   select(id, age, age_60, height, height_in, weight, weight_lbs)
 ```
 ::: 
@@ -714,9 +714,9 @@ summarize(.data, ...)
 ::: fragment
 ```{r, echo=T, eval=T, R.options=list(width=50)}
 # Compute summary statistics for age by race/ethnicity
-data %>% 
-  filter(!is.na(race_ethnicity)) %>% 
-  group_by(race_ethnicity) %>% 
+data |> 
+  filter(!is.na(race_ethnicity)) |> 
+  group_by(race_ethnicity) |> 
   summarize(age_mean = mean(age, na.rm = T),
             age_sd  = sd(age, na.rm = T), 
             age_min = min(age, na.rm = T), 
@@ -789,18 +789,18 @@ names(data)
 ```{r, echo=T, R.options=list(width=200)}
 #| output-location: slide
 
-data <- data %>% 
-  rename_with(~ tolower(.)) %>% 
+data <- data |> 
+  rename_with(~ tolower(.)) |> 
   rename(
     race_eth = race_ethnicity,
     mean_sbp = mean_bp, 
     pov_ratio = poverty_ratio
-    ) %>% 
+    ) |> 
   select(id:race_eth, 
          mean_sbp:height, 
          pov_ratio, 
          matches("pf.*")
-         ) %>% 
+         ) |> 
   relocate(pfas_total, .after = last_col())
 data
 ```
@@ -818,7 +818,7 @@ data
     -   Derive hypertension categories
 
 ```{r, echo=T, R.options=list(width=50)}
-data <- data %>%
+data <- data |>
   mutate(htn_cat = factor(
     case_when(
       mean_sbp < 120 ~ "normal",
@@ -839,21 +839,21 @@ glimpse(data)
 
 -   Some methods implemented in this example will be discussed more next week
 ```{r, echo=T, R.options=list(width=50)}
-data %>%
+data |>
   # Change to a long data format (more on this soon!)
   pivot_longer(matches("pf.*"), 
                names_to = "pfas_parameter",
                values_to = "concentration"  
-               ) %>%
+               ) |>
   # Group the data by PFAS variable name
-  group_by(pfas_parameter) %>% 
+  group_by(pfas_parameter) |> 
   # Compute some grouped summary statistics
   summarize(mean = mean(concentration, na.rm = T),
             sd = sd(concentration, na.rm = T),
             med = median(concentration, na.rm = T),
             min = min(concentration, na.rm = T),
             max = max(concentration, na.rm = T)
-            ) %>% 
+            ) |> 
   arrange(desc(mean))
 ```
 :::
