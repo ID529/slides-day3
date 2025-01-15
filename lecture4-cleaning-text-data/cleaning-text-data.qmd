@@ -1,11 +1,14 @@
 ---
 format: 
   revealjs:
-    theme: [simple, ../../day2/lecture3-reading-in-data/custom.scss]
+    # theme: [simple, ../../day2/lecture4-cleaning-text-data/custom.scss]
+    theme: [simple, ../../slides-day3/lecture4-cleaning-text-data/custom.scss]
     highlight: pygments
     logo: images/id529-sticker.png
     slide-number: true
     footer: "<https://id529.github.io/>"
+revealjs-plugins:
+  - pointer
 ---
 
 # Text Manipulation with R {.white-title .white-code background-image="images/bg-no-planet.png" background-size="110%"}
@@ -15,7 +18,7 @@ ID 529: Data Management and Analytic Workflows in R
 :::
 
 ::: {.white-12-pt}
-Dean Marengi \| Wednesday, January 10<sup>th</sup>, 2024
+Dean Marengi \| Wednesday, January 15<sup>th</sup>, 2025
 :::
 
 ## Motivation {.smaller}
@@ -788,12 +791,12 @@ check_distinct <- function(data) {
   str_clean <- function(x) str_sort(str_replace_na(unique(x), replacement = "."))
   
   # Create data frame view to summarize the messy data
-  map(data, ~ str_c(str_clean(as.character(.x)), collapse = " | ")) %>% 
-    bind_rows() %>% 
-    pivot_longer(everything(), names_to = "col_name", values_to = "distinct_levels") %>% 
-    mutate(distinct_count = str_count(distinct_levels, pattern = "(?<!\\.\\s)\\|") + 1) %>%
-    add_column(.after = "col_name", type = col_types) %>% 
-    kbl() %>%
+  map(data, ~ str_c(str_clean(as.character(.x)), collapse = " | ")) |>
+    bind_rows() |> 
+    pivot_longer(everything(), names_to = "col_name", values_to = "distinct_levels") |> 
+    mutate(distinct_count = str_count(distinct_levels, pattern = "(?<!\\.\\s)\\|") + 1) |>
+    add_column(.after = "col_name", type = col_types) |> 
+    kbl() |>
     kable_styling(font_size = 13)
 }
 
@@ -805,13 +808,13 @@ check_distinct(data)
 
 ```{r, echo=T, tidy = 'stylr', R.options = list(width = 130)}
 # Chain together column name clean-up steps
-new_data <- data %>% 
+new_data <- data |> 
   # Remove leading and trailing spaces in the column names
-  rename_with(~ str_trim(str_to_lower(.))) %>% 
+  rename_with(~ str_trim(str_to_lower(.))) |> 
   # Remove spaces (\\s) or periods (\\.) between 'gad' and '7' (i.e., make var prefix gad7)   
-  rename_with(~ str_replace_all(., "d\\s7|d\\.7", "d7")) %>% 
+  rename_with(~ str_replace_all(., "d\\s7|d\\.7", "d7")) |> 
   # Remove parentheses, and replace spaces, periods, or forward slashes with "_"
-  rename_with(~ str_replace_all(., c("\\(|\\)" = "", "\\s|\\.|\\/" = "_"))) %>% 
+  rename_with(~ str_replace_all(., c("\\(|\\)" = "", "\\s|\\.|\\/" = "_"))) |> 
   # Name clean-up for specific columns
   rename_with(~ str_replace_all(., c("question_|q_" = "q", 
                                      "ethn.*" = "ethn", 
@@ -830,10 +833,10 @@ check_distinct(new_data)
 
 # Write a function for name column clean-up 
 name_cleanup <- function(data, patterns) {
-  data <- data %>%
+  data <- data |>
     # Convert to lower-case and replace
-    rename_with(~ str_trim(str_to_lower(.))) %>%
-    rename_with(~ str_replace_all(., patterns))
+    rename_with(~ str_trim(str_to_lower(.))) |>
+    rename_with(~ str_replace_all(., patterns)) 
   return(data)
 }
 
@@ -849,9 +852,9 @@ patterns <- c("d\\s7|d\\.7" = "d7",   # gad7 prefix
               ".*id" = "id")          # participant id
 
 # Take our original data
-data %>% 
+data |> 
   # Then clean-up the variable names
-  name_cleanup(., patterns) %>% 
+  name_cleanup(patterns) |> 
   # Then check-out the result
   check_distinct()
 ```
@@ -861,7 +864,7 @@ data %>%
 
 ```{r, echo=T, R.options = list(width = 130)}
 # Begin cleaning up values in the data
-new_data <- new_data %>% 
+new_data <- new_data |> 
   mutate(
     # Convert strings in character columns to lower case
     # Remove leading and trailing white space
@@ -886,7 +889,7 @@ check_distinct(new_data)
 
 ```{r, echo=T, R.options = list(width = 130)}
 # Correct response values for GAD-7 questions 1 and 2
-new_data <- new_data %>% 
+new_data <- new_data |> 
   mutate(
     across(matches("gad.*[1-2]"), 
            ~ case_when(
@@ -907,7 +910,7 @@ check_distinct(new_data)
 #| output-location: slide
 
 # Coerce data types and generate new variables based on existing columns
-new_data <- new_data %>%   
+new_data <- new_data |>   
   mutate(
     across(matches("id|age|gad"), as.numeric), 
     indication = str_extract(psych_meds, "(?<=_).*"),

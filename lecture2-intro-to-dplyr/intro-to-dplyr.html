@@ -396,7 +396,7 @@
 <p>ID 529: Data Management and Analytic Workflows in R</p>
 </div>
 <div class="white-12-pt">
-<p>Dean Marengi | Wednesday, January 10<sup>th</sup>, 2024</p>
+<p>Dean Marengi | Wednesday, January 15<sup>th</sup>, 2025</p>
 </div>
 </section>
 <section id="motivation" class="slide level2 smaller">
@@ -546,7 +546,7 @@
 <ul>
 <li>Can “pipe” function output from one data manipulation step to the next</li>
 <li>Produces clean, readable code that reads from left to right, top to bottom</li>
-<li><span class="blue-bold">Note:</span> The <code>%&gt;%</code> reads as “then”</li>
+<li><span class="blue-bold">Note:</span> The <code>|&gt;</code> reads as “then”</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:5%;">
@@ -561,16 +561,16 @@
 <pre><code># A tibble: 15 × 3
       id group              num_gold_stars
    &lt;int&gt; &lt;chr&gt;                       &lt;int&gt;
- 1     2 i &lt;3 dplyr                    102
- 2    10 dplyr rocks                    99
- 3     7 dplyr rocks                    95
- 4    11 i &lt;3 dplyr                     94
- 5     5 i &lt;3 dplyr                    100
- 6    12 clean code or bust            104
+ 1     2 i &lt;3 dplyr                    103
+ 2    10 dplyr rocks                    96
+ 3     7 dplyr rocks                   102
+ 4    11 i &lt;3 dplyr                    106
+ 5     5 i &lt;3 dplyr                     97
+ 6    12 clean code or bust             99
  7    15 clean code or bust             93
  8     8 i &lt;3 dplyr                     92
- 9     3 clean code or bust            109
-10     9 clean code or bust            102
+ 9     3 clean code or bust            110
+10     9 clean code or bust             93
 # ℹ 5 more rows</code></pre>
 </div>
 </div>
@@ -581,9 +581,9 @@
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1-2|1-4|1-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Take our data, which is stored as a tibble</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>new_data <span class="ot">&lt;-</span> our_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>new_data <span class="ot">&lt;-</span> our_data <span class="sc">|&gt;</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="co"># THEN filter our data for a subset of rows</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">"i &lt;3 dplyr"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">"i &lt;3 dplyr"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a>  <span class="co"># THEN arrange the result by number of gold stars</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(num_gold_stars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -594,10 +594,10 @@
 <pre><code># A tibble: 5 × 3
      id group      num_gold_stars
   &lt;int&gt; &lt;chr&gt;               &lt;int&gt;
-1    14 i &lt;3 dplyr            107
-2     2 i &lt;3 dplyr            102
-3     5 i &lt;3 dplyr            100
-4    11 i &lt;3 dplyr             94
+1    11 i &lt;3 dplyr            106
+2    14 i &lt;3 dplyr            104
+3     2 i &lt;3 dplyr            103
+4     5 i &lt;3 dplyr             97
 5     8 i &lt;3 dplyr             92</code></pre>
 </div>
 </div>
@@ -747,7 +747,7 @@ $ PFDE           &lt;dbl&gt; 0.2, 0.3, 0.1, 0.2, 0.1, …</code></pre>
 <span id="cb8-3"><a href="#cb8-3"></a>       <span class="at">sbp =</span> mean_BP,</span>
 <span id="cb8-4"><a href="#cb8-4"></a>       <span class="at">pov_ratio =</span> poverty_ratio,</span>
 <span id="cb8-5"><a href="#cb8-5"></a>       <span class="at">race_eth =</span> race_ethnicity,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>       ) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a href="#cb8-6"></a>       ) <span class="sc">|&gt;</span> </span>
 <span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,339
@@ -774,7 +774,7 @@ $ PFDE      &lt;dbl&gt; 0.2, 0.3, 0.1, 0.2, 0.1, NA, 0…</code></pre>
 <h2><code>dplyr::rename()</code> cont.</h2>
 <div class="cell" data-r.options="{&quot;width&quot;:100}">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Convert all columns names to lower case</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">rename_with</span>(data, <span class="at">.fn =</span> tolower) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">rename_with</span>(data, <span class="at">.fn =</span> tolower) <span class="sc">|&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,339
@@ -795,7 +795,7 @@ $ pfde           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 </div>
 <div class="cell" data-r.options="{&quot;width&quot;:100}">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Convert column names that start with PF to upper case </span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">rename_with</span>(data, <span class="at">.fn =</span> toupper, <span class="fu">starts_with</span>(<span class="st">"pf"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">rename_with</span>(data, <span class="at">.fn =</span> toupper, <span class="fu">starts_with</span>(<span class="st">"pf"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,339
@@ -962,7 +962,7 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Take the data frame (data)</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="co"># Then arrange rows by age (in ascending order)</span></span>
 <span id="cb22-3"><a href="#cb22-3"></a><span class="co"># Then print the first 5 rows</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="fu">arrange</span>(data, age) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="fu">arrange</span>(data, age) <span class="sc">|&gt;</span> </span>
 <span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 12
@@ -984,7 +984,7 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Take the data frame (data)</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="co"># Then arrange rows by age, then mean SBP (descending)</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a><span class="co"># Then print the first 5 rows</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="fu">arrange</span>(data, <span class="fu">desc</span>(age), <span class="fu">desc</span>(mean_BP)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="fu">arrange</span>(data, <span class="fu">desc</span>(age), <span class="fu">desc</span>(mean_BP)) <span class="sc">|&gt;</span> </span>
 <span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 12
@@ -1048,8 +1048,8 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="fragment">
 <div class="cell" data-r.options="{&quot;width&quot;:50}">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># From the data frame, select columns explicitly by name </span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">select</span>(age, height, weight, mean_BP) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">select</span>(age, height, weight, mean_BP) <span class="sc">|&gt;</span> </span>
 <span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
@@ -1065,8 +1065,8 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># From the data frame, select sequences of consecutive columns</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>data <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">select</span>(id<span class="sc">:</span>race_ethnicity, PFOS<span class="sc">:</span>PFDE) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">select</span>(id<span class="sc">:</span>race_ethnicity, PFOS<span class="sc">:</span>PFDE) <span class="sc">|&gt;</span> </span>
 <span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 8
@@ -1131,8 +1131,8 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="cell" data-r.options="{&quot;width&quot;:100}">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># From the data frame, select id and columns that</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a><span class="co"># are prefixed with PF</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">select</span>(id, <span class="fu">starts_with</span>(<span class="st">"PF"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">select</span>(id, <span class="fu">starts_with</span>(<span class="st">"PF"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 6
@@ -1150,8 +1150,8 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="cell" data-r.options="{&quot;width&quot;:100}">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Bring ID and PFAS variables to the beginning of the dataset</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a><span class="co"># then position all non-selected variables after them</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">select</span>(id, <span class="fu">starts_with</span>(<span class="st">"PF"</span>), <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">select</span>(id, <span class="fu">starts_with</span>(<span class="st">"PF"</span>), <span class="fu">everything</span>()) <span class="sc">|&gt;</span> </span>
 <span id="cb34-5"><a href="#cb34-5"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 12
@@ -1196,11 +1196,11 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="fragment">
 <div class="cell" data-r.options="{&quot;width&quot;:80}">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># Derive new variables</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">mutate</span>(<span class="at">weight_lbs =</span> <span class="fu">round</span>(weight <span class="sc">*</span> <span class="fl">2.20462</span>, <span class="dv">2</span>), </span>
 <span id="cb37-4"><a href="#cb37-4"></a>         <span class="at">height_in =</span> <span class="fu">round</span>(height <span class="sc">*</span> <span class="fl">0.393701</span>, <span class="dv">2</span>),</span>
 <span id="cb37-5"><a href="#cb37-5"></a>         <span class="at">age_60 =</span> <span class="fu">if_else</span>(age <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb37-6"><a href="#cb37-6"></a>         ) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="#cb37-6"></a>         ) <span class="sc">|&gt;</span> </span>
 <span id="cb37-7"><a href="#cb37-7"></a>  <span class="fu">select</span>(id, age, age_60, height, height_in, weight, weight_lbs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,339 × 7
@@ -1254,9 +1254,9 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <div class="fragment">
 <div class="cell" data-r.options="{&quot;width&quot;:50}">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># Compute summary statistics for age by race/ethnicity</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(race_ethnicity)) <span class="sc">%&gt;%</span> </span>
-<span id="cb40-4"><a href="#cb40-4"></a>  <span class="fu">group_by</span>(race_ethnicity) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(race_ethnicity)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-4"><a href="#cb40-4"></a>  <span class="fu">group_by</span>(race_ethnicity) <span class="sc">|&gt;</span> </span>
 <span id="cb40-5"><a href="#cb40-5"></a>  <span class="fu">summarize</span>(<span class="at">age_mean =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> T),</span>
 <span id="cb40-6"><a href="#cb40-6"></a>            <span class="at">age_sd  =</span> <span class="fu">sd</span>(age, <span class="at">na.rm =</span> T), </span>
 <span id="cb40-7"><a href="#cb40-7"></a>            <span class="at">age_min =</span> <span class="fu">min</span>(age, <span class="at">na.rm =</span> T), </span>
@@ -1681,18 +1681,18 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 <li><span class="blue-bold">Output on next slide!</span></li>
 </ul>
 <div class="cell" data-r.options="{&quot;width&quot;:200}">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">tolower</span>(.)) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">tolower</span>(.)) <span class="sc">|&gt;</span> </span>
 <span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">rename</span>(</span>
 <span id="cb49-4"><a href="#cb49-4"></a>    <span class="at">race_eth =</span> race_ethnicity,</span>
 <span id="cb49-5"><a href="#cb49-5"></a>    <span class="at">mean_sbp =</span> mean_bp, </span>
 <span id="cb49-6"><a href="#cb49-6"></a>    <span class="at">pov_ratio =</span> poverty_ratio</span>
-<span id="cb49-7"><a href="#cb49-7"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-7"><a href="#cb49-7"></a>    ) <span class="sc">|&gt;</span> </span>
 <span id="cb49-8"><a href="#cb49-8"></a>  <span class="fu">select</span>(id<span class="sc">:</span>race_eth, </span>
 <span id="cb49-9"><a href="#cb49-9"></a>         mean_sbp<span class="sc">:</span>height, </span>
 <span id="cb49-10"><a href="#cb49-10"></a>         pov_ratio, </span>
 <span id="cb49-11"><a href="#cb49-11"></a>         <span class="fu">matches</span>(<span class="st">"pf.*"</span>)</span>
-<span id="cb49-12"><a href="#cb49-12"></a>         ) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-12"><a href="#cb49-12"></a>         ) <span class="sc">|&gt;</span> </span>
 <span id="cb49-13"><a href="#cb49-13"></a>  <span class="fu">relocate</span>(pfas_total, <span class="at">.after =</span> <span class="fu">last_col</span>())</span>
 <span id="cb49-14"><a href="#cb49-14"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1729,7 +1729,7 @@ $ PFDE           &lt;dbl&gt; 0.20, 0.30, 0.10, 0.20, 0.10, NA, 0.20, 1.70, NA, 0
 </ul></li>
 </ul>
 <div class="cell" data-r.options="{&quot;width&quot;:50}">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
 <span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">mutate</span>(<span class="at">htn_cat =</span> <span class="fu">factor</span>(</span>
 <span id="cb51-3"><a href="#cb51-3"></a>    <span class="fu">case_when</span>(</span>
 <span id="cb51-4"><a href="#cb51-4"></a>      mean_sbp <span class="sc">&lt;</span> <span class="dv">120</span> <span class="sc">~</span> <span class="st">"normal"</span>,</span>
@@ -1766,21 +1766,21 @@ $ htn_cat    &lt;fct&gt; normal, elevated, elevated, n…</code></pre>
 <li>Some methods implemented in this example will be discussed more next week</li>
 </ul>
 <div class="cell" data-r.options="{&quot;width&quot;:50}">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>data <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>data <span class="sc">|&gt;</span></span>
 <span id="cb53-2"><a href="#cb53-2"></a>  <span class="co"># Change to a long data format (more on this soon!)</span></span>
 <span id="cb53-3"><a href="#cb53-3"></a>  <span class="fu">pivot_longer</span>(<span class="fu">matches</span>(<span class="st">"pf.*"</span>), </span>
 <span id="cb53-4"><a href="#cb53-4"></a>               <span class="at">names_to =</span> <span class="st">"pfas_parameter"</span>,</span>
 <span id="cb53-5"><a href="#cb53-5"></a>               <span class="at">values_to =</span> <span class="st">"concentration"</span>  </span>
-<span id="cb53-6"><a href="#cb53-6"></a>               ) <span class="sc">%&gt;%</span></span>
+<span id="cb53-6"><a href="#cb53-6"></a>               ) <span class="sc">|&gt;</span></span>
 <span id="cb53-7"><a href="#cb53-7"></a>  <span class="co"># Group the data by PFAS variable name</span></span>
-<span id="cb53-8"><a href="#cb53-8"></a>  <span class="fu">group_by</span>(pfas_parameter) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-8"><a href="#cb53-8"></a>  <span class="fu">group_by</span>(pfas_parameter) <span class="sc">|&gt;</span> </span>
 <span id="cb53-9"><a href="#cb53-9"></a>  <span class="co"># Compute some grouped summary statistics</span></span>
 <span id="cb53-10"><a href="#cb53-10"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(concentration, <span class="at">na.rm =</span> T),</span>
 <span id="cb53-11"><a href="#cb53-11"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(concentration, <span class="at">na.rm =</span> T),</span>
 <span id="cb53-12"><a href="#cb53-12"></a>            <span class="at">med =</span> <span class="fu">median</span>(concentration, <span class="at">na.rm =</span> T),</span>
 <span id="cb53-13"><a href="#cb53-13"></a>            <span class="at">min =</span> <span class="fu">min</span>(concentration, <span class="at">na.rm =</span> T),</span>
 <span id="cb53-14"><a href="#cb53-14"></a>            <span class="at">max =</span> <span class="fu">max</span>(concentration, <span class="at">na.rm =</span> T)</span>
-<span id="cb53-15"><a href="#cb53-15"></a>            ) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-15"><a href="#cb53-15"></a>            ) <span class="sc">|&gt;</span> </span>
 <span id="cb53-16"><a href="#cb53-16"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
