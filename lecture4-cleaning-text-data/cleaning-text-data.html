@@ -98,6 +98,7 @@
   <link href="cleaning-text-data_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="cleaning-text-data_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="cleaning-text-data_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="cleaning-text-data_files/libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
   <link href="cleaning-text-data_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
@@ -399,7 +400,7 @@
 <p>ID 529: Data Management and Analytic Workflows in R</p>
 </div>
 <div class="white-12-pt">
-<p>Dean Marengi | Wednesday, January 10<sup>th</sup>, 2024</p>
+<p>Dean Marengi | Wednesday, January 15<sup>th</sup>, 2025</p>
 </div>
 </section>
 <section id="motivation" class="slide level2 smaller">
@@ -1280,12 +1281,12 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 <span id="cb23-7"><a href="#cb23-7"></a>  str_clean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">str_sort</span>(<span class="fu">str_replace_na</span>(<span class="fu">unique</span>(x), <span class="at">replacement =</span> <span class="st">"."</span>))</span>
 <span id="cb23-8"><a href="#cb23-8"></a>  </span>
 <span id="cb23-9"><a href="#cb23-9"></a>  <span class="co"># Create data frame view to summarize the messy data</span></span>
-<span id="cb23-10"><a href="#cb23-10"></a>  <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">str_c</span>(<span class="fu">str_clean</span>(<span class="fu">as.character</span>(.x)), <span class="at">collapse =</span> <span class="st">" | "</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-11"><a href="#cb23-11"></a>    <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb23-12"><a href="#cb23-12"></a>    <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"col_name"</span>, <span class="at">values_to =</span> <span class="st">"distinct_levels"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-13"><a href="#cb23-13"></a>    <span class="fu">mutate</span>(<span class="at">distinct_count =</span> <span class="fu">str_count</span>(distinct_levels, <span class="at">pattern =</span> <span class="st">"(?&lt;!</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">s)</span><span class="sc">\\</span><span class="st">|"</span>) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-14"><a href="#cb23-14"></a>    <span class="fu">add_column</span>(<span class="at">.after =</span> <span class="st">"col_name"</span>, <span class="at">type =</span> col_types) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-15"><a href="#cb23-15"></a>    <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a>  <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">str_c</span>(<span class="fu">str_clean</span>(<span class="fu">as.character</span>(.x)), <span class="at">collapse =</span> <span class="st">" | "</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a>    <span class="fu">bind_rows</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb23-12"><a href="#cb23-12"></a>    <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"col_name"</span>, <span class="at">values_to =</span> <span class="st">"distinct_levels"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb23-13"><a href="#cb23-13"></a>    <span class="fu">mutate</span>(<span class="at">distinct_count =</span> <span class="fu">str_count</span>(distinct_levels, <span class="at">pattern =</span> <span class="st">"(?&lt;!</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">s)</span><span class="sc">\\</span><span class="st">|"</span>) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a>    <span class="fu">add_column</span>(<span class="at">.after =</span> <span class="st">"col_name"</span>, <span class="at">type =</span> col_types) <span class="sc">|&gt;</span> </span>
+<span id="cb23-15"><a href="#cb23-15"></a>    <span class="fu">kbl</span>() <span class="sc">|&gt;</span></span>
 <span id="cb23-16"><a href="#cb23-16"></a>    <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">13</span>)</span>
 <span id="cb23-17"><a href="#cb23-17"></a>}</span>
 <span id="cb23-18"><a href="#cb23-18"></a></span>
@@ -1381,13 +1382,13 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 <p><strong>One approach</strong></p>
 <div class="cell" data-r.options="{&quot;width&quot;:130}">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Chain together column name clean-up steps</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>new_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a>new_data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
 <span id="cb24-3"><a href="#cb24-3"></a>  <span class="co"># Remove leading and trailing spaces in the column names</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_trim</span>(<span class="fu">str_to_lower</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_trim</span>(<span class="fu">str_to_lower</span>(.))) <span class="sc">|&gt;</span> </span>
 <span id="cb24-5"><a href="#cb24-5"></a>  <span class="co"># Remove spaces (\\s) or periods (\\.) between 'gad' and '7' (i.e., make var prefix gad7)   </span></span>
-<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="st">"d</span><span class="sc">\\</span><span class="st">s7|d</span><span class="sc">\\</span><span class="st">.7"</span>, <span class="st">"d7"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="st">"d</span><span class="sc">\\</span><span class="st">s7|d</span><span class="sc">\\</span><span class="st">.7"</span>, <span class="st">"d7"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb24-7"><a href="#cb24-7"></a>  <span class="co"># Remove parentheses, and replace spaces, periods, or forward slashes with "_"</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">(|</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">s|</span><span class="sc">\\</span><span class="st">.|</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">"_"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">(|</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">s|</span><span class="sc">\\</span><span class="st">.|</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">"_"</span>))) <span class="sc">|&gt;</span> </span>
 <span id="cb24-9"><a href="#cb24-9"></a>  <span class="co"># Name clean-up for specific columns</span></span>
 <span id="cb24-10"><a href="#cb24-10"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(<span class="st">"question_|q_"</span> <span class="ot">=</span> <span class="st">"q"</span>, </span>
 <span id="cb24-11"><a href="#cb24-11"></a>                                     <span class="st">"ethn.*"</span> <span class="ot">=</span> <span class="st">"ethn"</span>, </span>
@@ -1487,10 +1488,10 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 <div class="column">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Write a function for name column clean-up </span></span>
 <span id="cb25-2"><a href="#cb25-2"></a>name_cleanup <span class="ot">&lt;-</span> <span class="cf">function</span>(data, patterns) {</span>
-<span id="cb25-3"><a href="#cb25-3"></a>  data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>  data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a>    <span class="co"># Convert to lower-case and replace</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_trim</span>(<span class="fu">str_to_lower</span>(.))) <span class="sc">%&gt;%</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., patterns))</span>
+<span id="cb25-5"><a href="#cb25-5"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_trim</span>(<span class="fu">str_to_lower</span>(.))) <span class="sc">|&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., patterns)) </span>
 <span id="cb25-7"><a href="#cb25-7"></a>  <span class="fu">return</span>(data)</span>
 <span id="cb25-8"><a href="#cb25-8"></a>}</span>
 <span id="cb25-9"><a href="#cb25-9"></a></span>
@@ -1506,9 +1507,9 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 <span id="cb25-19"><a href="#cb25-19"></a>              <span class="st">".*id"</span> <span class="ot">=</span> <span class="st">"id"</span>)          <span class="co"># participant id</span></span>
 <span id="cb25-20"><a href="#cb25-20"></a></span>
 <span id="cb25-21"><a href="#cb25-21"></a><span class="co"># Take our original data</span></span>
-<span id="cb25-22"><a href="#cb25-22"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb25-22"><a href="#cb25-22"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb25-23"><a href="#cb25-23"></a>  <span class="co"># Then clean-up the variable names</span></span>
-<span id="cb25-24"><a href="#cb25-24"></a>  <span class="fu">name_cleanup</span>(., patterns) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-24"><a href="#cb25-24"></a>  <span class="fu">name_cleanup</span>(patterns) <span class="sc">|&gt;</span> </span>
 <span id="cb25-25"><a href="#cb25-25"></a>  <span class="co"># Then check-out the result</span></span>
 <span id="cb25-26"><a href="#cb25-26"></a>  <span class="fu">check_distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
@@ -1601,7 +1602,7 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 <h2>Case study: Clean up values</h2>
 <div class="cell" data-r.options="{&quot;width&quot;:130}">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Begin cleaning up values in the data</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>new_data <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>new_data <span class="ot">&lt;-</span> new_data <span class="sc">|&gt;</span> </span>
 <span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb26-4"><a href="#cb26-4"></a>    <span class="co"># Convert strings in character columns to lower case</span></span>
 <span id="cb26-5"><a href="#cb26-5"></a>    <span class="co"># Remove leading and trailing white space</span></span>
@@ -1707,7 +1708,7 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 <h2>Case study: Clean up more values</h2>
 <div class="cell" data-r.options="{&quot;width&quot;:130}">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Correct response values for GAD-7 questions 1 and 2</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>new_data <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>new_data <span class="ot">&lt;-</span> new_data <span class="sc">|&gt;</span> </span>
 <span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb27-4"><a href="#cb27-4"></a>    <span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"gad.*[1-2]"</span>), </span>
 <span id="cb27-5"><a href="#cb27-5"></a>           <span class="sc">~</span> <span class="fu">case_when</span>(</span>
@@ -1808,7 +1809,7 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 <h2>Case study: Coerce data types/derive variables</h2>
 <div class="cell" data-r.options="{&quot;width&quot;:130}">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Coerce data types and generate new variables based on existing columns</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>new_data <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span>   </span>
+<span id="cb28-2"><a href="#cb28-2"></a>new_data <span class="ot">&lt;-</span> new_data <span class="sc">|&gt;</span>   </span>
 <span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb28-4"><a href="#cb28-4"></a>    <span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"id|age|gad"</span>), as.numeric), </span>
 <span id="cb28-5"><a href="#cb28-5"></a>    <span class="at">indication =</span> <span class="fu">str_extract</span>(psych_meds, <span class="st">"(?&lt;=_).*"</span>),</span>
@@ -2014,6 +2015,7 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
   <script src="cleaning-text-data_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="cleaning-text-data_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="cleaning-text-data_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="cleaning-text-data_files/libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
   <script src="cleaning-text-data_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -2036,6 +2038,7 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -2206,7 +2209,7 @@ $ Medications        &lt;chr&gt; "none", "None", "None", "Celexa for Anxiety", "
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealPointer, QuartoSupport,
 
           RevealMath,
           RevealNotes,
