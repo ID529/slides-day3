@@ -1,31 +1,18 @@
 ---
-title: "Functions"
+title: "<span style='color: white'>Functions</span>"
 format:
   revealjs:
     theme: [default, functions.scss]
-    confetti:
-      particleCount: 150
-      angle: 90
-      spread: 360
-      startVelocity: 25
-      gravity: 0.65
-      drift: 0
-      ticks: 400
-      colors: ["#0366fc", "#f54281", "#1fd14f"]
-      scalar: 0.7
 slide-number: true
 title-slide-attributes:
-  data-background-image: "graphics/transition_slides/inaki-del-olmo.jpg"
+  data-background-image: "https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/transition_slides/inaki-del-olmo.jpg"
   data-background-opacity: "30%"
   data-background-color: "black"
-revealjs-plugins:
-  - pointer
-  - confetti
 execute: 
   echo: true
 ---
 
-# morals {.small data-background-image='graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='40%' data-background-color='black'} 
+# morals {.small data-background-image='https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='40%' data-background-color='black'} 
 
 > <span style='color: white;'>“The function of good software is to make the complex appear to be simple.” <br>—Grady Booch</span>
 
@@ -35,7 +22,7 @@ execute:
 > <span style='color: white;'>"If you can't informally describe a function in one
 line, the function is probably too large." <br>—(paraphrased) Eric S. Raymond</span>
 
-# morals {data-background-image='graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='40%' data-background-color='black'}
+# morals {data-background-image='https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='40%' data-background-color='black'}
 
 >  <span style='color: white;'>"You should consider writing a function 
 whenever you've copied and pasted a block of code more than
@@ -247,7 +234,7 @@ calculate_hypotenuse_length(1.3e154, 1.3e154)
 
 :::{.columns}
 :::{.column}
-<img src='graphics/hodu_lilac.png' alt='Hodu Tip! with lilac color styling'>
+<img src='https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/hodu_lilac.png' alt='Hodu Tip! with lilac color styling'>
 :::
 :::{.column}
 <div style='padding-top: 10%;'></div>
@@ -405,7 +392,7 @@ my_fancy_function(arg_f = factorial)
 
 :::{.columns}
 :::{.column}
-<img src='graphics/hodu_magenta.png' alt='Hodu Tip! with magenta color styling'>
+<img src='https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/hodu_magenta.png' alt='Hodu Tip! with magenta color styling'>
 :::
 :::{.column .smaller}
 <div style='padding-top: 10%;'></div>
@@ -494,7 +481,7 @@ a teaser for a later lecture on functional programming.
 
 ## testing functions with test_that {.xxsmall}
 
-```{r}
+```{r, eval=FALSE}
 library(testthat)
 
 test_that("calculate_hypotenuse_length works as intended", {
@@ -517,7 +504,7 @@ test_that("calculate_hypotenuse_length works as intended", {
 ```
 
 
-# key takeaways {.xsmall data-background-image='graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='40%' data-background-color='black'}
+# key takeaways {.xsmall data-background-image='https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='40%' data-background-color='black'}
 
   * functions should help you automate the boring/repetitive stuff
   * arguments can be: 
@@ -529,13 +516,13 @@ test_that("calculate_hypotenuse_length works as intended", {
   * throw warnings and errors in your functions to make future debugging easier
   * use testing to ensure your functions work to your specification
 
-# references {data-background-image='graphics/transition_slides/inaki-del-olmo.jpg' data-background-opacity='20%' data-background-color='black'}
+# references {data-background-image='https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/transition_slides/inaki-del-olmo.jpg' data-background-opacity='20%' data-background-color='black'}
 
   * <https://r4ds.had.co.nz/functions.html>
   * <https://adv-r.hadley.nz/functions.html>
   * <https://testthat.r-lib.org/>
 
-# challenges for the activity {.xsmall  data-background-image='graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='30%' data-background-color='black'}
+# challenges for the activity {.xsmall  data-background-image='https://raw.githubusercontent.com/ID529/lectures/refs/heads/main/graphics/transition_slides/sam-moghadam-khamseh.jpg' data-background-opacity='30%' data-background-color='black'}
 
   * relatively easy: write a function that takes a numeric vector and returns the square of every element 
 
